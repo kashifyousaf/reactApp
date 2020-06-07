@@ -22,22 +22,25 @@ jobs:
     - uses: actions/checkout@v2
 
     # Runs a single command using the runners shell
+    # Install Node.js
     - name: setup node js environment
       uses: actions/setup-node@v2-beta
       with:
-        version: 12 
+       node-version: 12 
 
     # Runs a set of commands using the runners shell
+    # Install yarn
     - name: Github Action for yarn
-      uses: Borales/setup-yarn@v2.1.0
+      uses: borales/setup-yarn@v2.0.0
       with:
         #yarn install
         cmd: install  
+    # Build React app with yarn 
     - name: Creating build
       run: yarn build
-      
+    # Installing surge 
     - name: installing surge
       run: npm install --global surge
-      
+    # Deploy surge
     - name: deployment on surge
       run: surge ./build http://react_application.surge.sh/ --token ${{secrets.SURGE_TOKEN}}
